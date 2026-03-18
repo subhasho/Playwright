@@ -1,0 +1,31 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://www.stage.xometry.net/quoting/quote/staff/');
+  await page.getByRole('textbox', { name: 'Business Email' }).click();
+  await page.getByRole('textbox', { name: 'Business Email' }).fill('ohalsubhash823@gmail.com');
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('');
+  await page.getByRole('textbox', { name: 'Password' }).press('CapsLock');
+  await page.getByRole('textbox', { name: 'Password' }).fill('P');
+  await page.getByRole('textbox', { name: 'Password' }).press('CapsLock');
+  await page.getByRole('textbox', { name: 'Password' }).fill('Password');
+  await page.getByRole('switch', { name: 'Show password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('Password!123');
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.getByRole('button', { name: 'View Quoting Home' }).click();
+  await page.getByRole('button', { name: 'Recent CAD Files', exact: true }).click();
+  await page.getByTestId('checkbox').nth(2).click();
+  await page.getByRole('button', { name: 'Add Files' }).click();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.getByRole('button', { name: 'Continue to Checkout' }).click();
+  await page.getByRole('button', { name: 'Next' }).click();
+  await page.getByRole('button', { name: 'Next' }).click();
+  await page.getByRole('button', { name: 'Next' }).click();
+  await page.getByRole('button', { name: 'Next' }).click();
+  await page.getByRole('checkbox').click();
+  await page.getByRole('button', { name: 'Place Order' }).click();
+  await page.goto('https://www.stage.xometry.net/orders/26FA7-1505C');
+});
