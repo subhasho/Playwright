@@ -1,6 +1,6 @@
 // Jenkins Pipeline for Playwright tests
-// Require: Node.js plugin + a tool named "Node.js" in Jenkins (Manage Jenkins → Tools).
-// Or replace nodeJSInstallationName with your configured Node.js tool name.
+// Uses node/npm from the agent's PATH (no Node.js plugin required).
+// On Windows agents, change "sh" to "bat" in each step.
 
 pipeline {
   agent any
@@ -23,35 +23,26 @@ pipeline {
 
     stage('Setup Node') {
       steps {
-        nodejs(nodeJSInstallationName: 'Node.js') {
-          sh 'node --version'
-          sh 'npm --version'
-        }
+        sh 'node --version'
+        sh 'npm --version'
       }
     }
 
     stage('Install Dependencies') {
       steps {
-        nodejs(nodeJSInstallationName: 'Node.js') {
-          sh 'npm ci'
-        }
+        sh 'npm ci'
       }
     }
 
     stage('Install Playwright Browsers') {
       steps {
-        nodejs(nodeJSInstallationName: 'Node.js') {
-          // Chromium only for faster CI; use 'npx playwright install --with-deps' for all browsers
-          sh 'npx playwright install --with-deps chromium'
-        }
+        sh 'npx playwright install --with-deps chromium'
       }
     }
 
     stage('Run Playwright Tests') {
       steps {
-        nodejs(nodeJSInstallationName: 'Node.js') {
-          sh 'npm run test'
-        }
+        sh 'npm run test'
       }
       post {
         always {
